@@ -1,0 +1,35 @@
+features_list
+👌fixED - values in series reset after change Amount of Series
+👌addED - there should not possible to decrease Amount of Series to have less number then the last position set of series inputs
+    👌fix - validation message
+fix - space of trainings list
+add - favorites trainings
+    - "add to favorites" button in edit training
+    - favorites positioned at the top of the training list
+    - inside training list displayed star shape icon in the left side of remove button in case of training added to favorites
+add data handling - ?database? - POC
+add - "START Training" button in trainings list
+add - training execution window
+    {
+    low_prio/last training info - ?scrollable? exercises list with info about last training :
+        values [unit based],
+        date in general of last training,
+        date of last execution of this training
+        time of execution
+        weight lifted (if valid)
+    start training button with counter "3, 2, 1, "DO YOUR BEST"
+    v1: window of exercises step by step
+    v2: window of exercises with pagination
+    v3: editable, ?scrollable? exercises list
+    }
+add - trainings statistics
+add - layout
+add - deployment
+add - weight and body measurements
+add - weight and body statistics
+add - training save as ?json?
+add - possibility to download/upload training
+add - web storage for trainings
+add - ?crypto token?
+add - automated testing
+add - ??changeable layouts??

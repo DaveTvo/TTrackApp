@@ -1,0 +1,231 @@
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        Button:
+            text: "Trainings"
+            on_press: root.manager.current = 'trainings'
+        Button:
+            text: "Statistics"
+            on_press: root.manager.current = 'statistics'
+
+<StatisticsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            Button:
+                text: "Back to Main"
+                size_hint: 0.2, None
+                height: '30dp'
+                on_press: root.manager.current = 'main'
+        Label:
+            text: "Statistics will be displayed here."
+
+<TrainingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            Button:
+                text: "Back to Main"
+                size_hint: 0.2, None
+                height: '30dp'
+                on_press: root.manager.current = 'main'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '30dp'
+            TextInput:
+                id: new_training_input
+                multiline: False
+                size_hint: 0.8, None
+                height: '30dp'
+                hint_text: "Enter training name"
+            Button:
+                text: "Add"
+                size_hint: 0.2, None
+                height: '30dp'
+                on_press: root.add_training()
+        ScrollView:
+            id: trainings_scrollview
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                spacing: '10dp'
+                size_hint_y: None
+                height: self.minimum_height
+
+<EditTrainingScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            Button:
+                text: "Back to Trainings"
+                size_hint: 1, None
+                height: '30dp'
+                on_press: root.manager.current = 'trainings'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                Label:
+                    text: "Training Name"
+                    height: '10dp'
+                    font_size: '14sp'  # Reduce the font size for the label
+                TextInput:
+                    id: training_name_input
+                    size_hint_y: None
+                    multiline: False
+                    height: '30dp'
+                    hint_text: "Enter training name"
+                    text: root.training_name
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                Label:
+                    text: "Time [min]"
+                    size_hint_y: None
+                    height: '10dp'
+                    font_size: '14sp'  # Reduce the font size for the label
+                TextInput:
+                    id: edit_input
+                    size_hint: 1, None
+                    multiline: False
+                    height: '30dp'
+                    hint_text: "Input time in minutes"
+                    input_filter: "int"
+                    input_type: 'number'
+                    on_text_validate: root.on_time_input_validate()
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            TextInput:
+                id: new_exercise_input
+                multiline: False
+                size_hint: 0.8, None
+                height: '30dp'
+                hint_text: "Enter exercise name"
+            Button:
+                text: "Add"
+                size_hint: 0.2, None
+                height: '30dp'
+                on_press: root.add_exercise()
+        ScrollView:
+            id: exercises_scrollview
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                spacing: '10dp'
+                size_hint_y: None
+                height: self.minimum_height
+
+        BoxLayout:
+            orientation: 'horizontal'
+            height: '40dp'
+            Button:
+                text: "Save Training"
+                size_hint_y: None
+                height: '30dp'
+                on_press: root.save_edit()
+
+<ExerciseSetupScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            Button:
+                text: "Back to Edit Training"
+                size_hint: 1, None
+                height: '30dp'
+                on_press: root.manager.current = 'edit_training'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                Label:
+                    text: "Exercise Name"
+                    height: '10dp'
+                    font_size: '14sp'
+                TextInput:
+                    id: exercise_name_input
+                    size_hint_y: None
+                    multiline: False
+                    height: '30dp'
+                    hint_text: "Enter exercise name"
+        BoxLayout:
+            id: exercise_setup_spinners
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                Label:
+                    text: "Exercise Unit"
+                    size_hint_x: None
+                    width: self.texture_size[0]
+                    font_size: '14sp'
+                Spinner:
+                    id: exercise_type_spinner
+                    size_hint: None, None
+                    height: '30dp'
+                    text: 'Weight [kg]'
+                    values: ['Weight [kg]', 'Time [min]', 'Distance [km]']
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                Label:
+                    text: "Amount of Series"
+                    size_hint_x: None
+                    width: self.texture_size[0]
+                    font_size: '14sp'
+                Spinner:
+                    id: series_number_spinner
+                    size_hint: None, None
+                    height: '30dp'
+                    text: '1'
+                    values: ['1', '2', '3', '4', '5', '6', '7', '8']
+        BoxLayout:
+            id: series_inputs
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+        BoxLayout:
+            id: message_box
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '30dp'
+            Label:
+                id: message_label
+                size_hint_x: 1
+                font_size: '14sp'
+                color: 1, 0, 0, 1  # Red color for error message
+        BoxLayout:
+            orientation: 'horizontal'
+            height: '40dp'
+            Button:
+                text: "Save Exercise"
+                size_hint_y: None
+                height: '30dp'
+                on_press: root.save_exercise()
