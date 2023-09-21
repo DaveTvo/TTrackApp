@@ -30,18 +30,10 @@ class MyApp(App):
         # self.training_db.close_db_connection()
         self.screen_manager = ScreenManager()
 
-        # Initialize DatabaseHandler and create tables
-        self.training_db = TrainingsTable()
-        TrainingsTable.create_trainings_table(self.training_db.db_connection)
-
-        self.exercise_db = ExerciseTable()
-        ExerciseTable.create_exercise_table(self.exercise_db.db_connection)
-
         self.screen_manager.add_widget(MainScreen(name='main'))
-        self.screen_manager.add_widget(TrainingsScreen(name='trainings', training_db=self.training_db))
+        self.screen_manager.add_widget(TrainingsScreen(name='trainings'))
         self.screen_manager.add_widget(StatisticsScreen(name='statistics'))
-        self.screen_manager.add_widget(EditTrainingScreen(
-            name='edit_training', training_db=self.training_db, exercise_db=self.exercise_db))
+        self.screen_manager.add_widget(EditTrainingScreen(name='edit_training'))
         self.screen_manager.add_widget(ExerciseSetupScreen(name='exercise_setup'))
 
         return self.screen_manager

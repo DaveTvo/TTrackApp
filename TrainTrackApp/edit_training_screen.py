@@ -2,11 +2,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
 
 
 class EditTrainingScreen(Screen):
-    exercises_db = ObjectProperty(None)
     training_name = ""
     exercises = {}
     current_exercise = ""
@@ -28,10 +26,6 @@ class EditTrainingScreen(Screen):
         time_input = self.ids.edit_input.text
         time_minutes = int(time_input) if time_input else None
 
-        # Update the training name and time in the database
-        self.training_db.update_training_name(new_training_name, self.training_id)
-        self.training_db.update_training_time(time_minutes, self.training_id)
-
         # Update the training name and time in TrainingsScreen
         if self.trainings_screen_ref:
             if new_training_name != self.training_name:
@@ -45,7 +39,7 @@ class EditTrainingScreen(Screen):
     def add_exercise(self):
         new_exercise = self.ids.new_exercise_input.text
         if new_exercise:
-            self.exercise_db.add_exercise(self.training_id, new_exercise, None, [])
+            self.exercises[new_exercise] = None  # Initialize the time to None
             self.ids.new_exercise_input.text = ""  # Clear the input field after adding
             self.update_exercises_list()
 

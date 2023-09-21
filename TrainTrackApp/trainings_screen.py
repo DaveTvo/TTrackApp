@@ -2,15 +2,10 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
 
 
 class TrainingsScreen(Screen):
-    training_db = ObjectProperty(None)
     training_positions = {}
-
-    def __init__(self, **kwargs):
-        super(TrainingsScreen, self).__init__(**kwargs)
 
     def on_enter(self):
         self.update_trainings_list()
@@ -18,15 +13,13 @@ class TrainingsScreen(Screen):
     def add_training(self):
         new_training = self.ids.new_training_input.text
         if new_training:
-            # Initialize the time to None
-            self.training_db.add_training(new_training, None)
+            self.training_positions[new_training] = None  # Initialize the time to None
             self.ids.new_training_input.text = ""  # Clear the input field after adding
             self.update_trainings_list()
 
     def remove_training(self, training_name):
         if training_name in self.training_positions:
-            # Remove training from the database
-            self.training_db.delete_training(training_name)
+            del self.training_positions[training_name]
             self.update_trainings_list()
 
     def update_trainings_list(self):
